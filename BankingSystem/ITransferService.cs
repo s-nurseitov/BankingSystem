@@ -8,6 +8,6 @@ namespace BankingSystem
 {
     public interface ITransferService
     {
-        void Transfer(Account account, Account transferaccount);
+        void Transfer(Account account, Account transferaccount, double Money);
     }
 }

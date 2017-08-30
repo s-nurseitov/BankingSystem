@@ -6,7 +6,7 @@ namespace BankingSystem
     {
         public long Id { get; set; }
         public long AccountNumber { get; set; }
-        public long MoneyOnAccount { get; set; }
+        public double MoneyOnAccount { get; set; }
         public Enum Currency { get; set; }
     }
 }

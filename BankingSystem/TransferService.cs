@@ -3,9 +3,9 @@
     public class TransferService : ITransferService
     {
         public long Id { get; set; }
-        public void Transfer(Account account,Account transferaccount)
+        public void Transfer(Account account, Account transferaccount, double Money)
         {
-            account.MoneyOnAccount
+            if(account.MoneyOnAccount
         }
     }
 }
