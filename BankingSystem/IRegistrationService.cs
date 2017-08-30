@@ -8,6 +8,6 @@ namespace BankingSystem
 {
     public interface IRegistrationService
     {
-
+        void registration(User user);
     }
 }
