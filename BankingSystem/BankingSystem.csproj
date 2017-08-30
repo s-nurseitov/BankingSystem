@@ -62,6 +62,7 @@
     <Compile Include="TransferService.cs" />
     <Compile Include="User.cs" />
     <Compile Include="WithdrawService.cs" />
+    <Compile Include="Сurrency.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
