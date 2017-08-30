@@ -8,5 +8,6 @@ namespace BankingSystem
 {
     public interface IWithdrawService
     {
+        bool Withdraw(Account account, int sum);
     }
 }

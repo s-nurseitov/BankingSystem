@@ -20,16 +20,18 @@ namespace BankingSystem
         {
             for (;;)
             {
-                int pos;
-                Int32.TryParse(Console.ReadLine(), out pos);
-                PrintImage(handler(pos));
+                int pos= 0;
+                if (Int32.TryParse(Console.ReadLine(), out pos)){
+                    PrintImage(handler(pos));
+                }
             }
         }
 
         public void PrintImage(List<string> list)
         {
             Console.Clear();
-            foreach(string str in list){
+            foreach (string str in list)
+            {
                 Console.WriteLine(str);
             }
         }
