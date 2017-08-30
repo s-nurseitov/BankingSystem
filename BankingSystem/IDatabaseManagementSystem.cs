@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace BankingSystem
 {
-    interface IDatabase
+    public interface IDatabaseManagementSystem
     {
-        void Add(User user, Account account, Card card);
+        void Add(User user);
         void Delete(User user);
-        void GetUser(long id);
-        void GetAccount(long id);
+        User GetUser(long id);
+        Account GetAccount(long id);
     }
 }
