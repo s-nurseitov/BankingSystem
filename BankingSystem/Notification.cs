@@ -1,23 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Net;
 using System.Net.Mail;
 
 namespace BankingSystem
 {
-    class Program
+    public class Notification : INotificationService
     {
-        static void Main(string[] args)
+        public long Id { get; set; }
+
+        public Notification(Server server)
+        {
+            server.changeAccount += Notify;
+        }
+        public bool Notify(User user, string subject, string body)
         {
             MailMessage msg = new MailMessage();
 
             msg.From = new MailAddress("SDPBank.162@gmail.com");
-            msg.To.Add("aibek1805@gmail.com");
-            msg.Subject = "example";
-            msg.Body = "text";
+            msg.To.Add(user.Email);
+            msg.Subject = subject;
+            msg.Body = body;
             SmtpClient client = new SmtpClient();
             client.UseDefaultCredentials = true;
             client.Host = "smtp.gmail.com";
@@ -33,8 +35,9 @@ namespace BankingSystem
             catch (Exception)
             {
                 // запись логов
-                //return false;
+                return false;
             }
+            return true;
         }
     }
 }
