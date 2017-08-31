@@ -90,6 +90,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="strings.ru.resx" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Telegram-Bot-Tutorial\TelegramBotApp.csproj">
+      <Project>{355c3cc6-0237-415b-96c3-c0426090d5ba}</Project>
+      <Name>TelegramBotApp</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
