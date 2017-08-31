@@ -7,8 +7,8 @@ namespace BankingSystem
     {
         void IRegistrationService.registration(User user)
         {
-            Write("Введите ID:");
-            user.Id = Read();
+           // Write("Введите ID:");
+           // user.Id = Read();
 
             Write("Введите ИИН:");
             user.IIN = ReadLine();
