@@ -45,14 +45,15 @@
   <ItemGroup>
     <Compile Include="ATM.cs" />
     <Compile Include="Card.cs" />
-    <Compile Include="Database.cs" />
     <Compile Include="Account.cs" />
-    <Compile Include="IDatabase.cs" />
+    <Compile Include="DatabaseManagementSystem.cs" />
+    <Compile Include="IDatabaseManagementSystem.cs" />
     <Compile Include="INotificationService.cs" />
     <Compile Include="IRefillService.cs" />
     <Compile Include="IRegistrationService.cs" />
     <Compile Include="ITransferService.cs" />
     <Compile Include="IWithdrawService.cs" />
+    <Compile Include="Languages.cs" />
     <Compile Include="Notification.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

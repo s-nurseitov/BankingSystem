@@ -10,19 +10,20 @@ namespace BankingSystem
     {
         public long Id { get; set; }
         public delegate List<string> Handler(int command);
-        public Handler handler;
+        public event Handler EventHandler;
         public ATM(Handler handler)
         {
-            this.handler = handler;
+            this.EventHandler = handler;
         }
 
         public void HandlerCommand()
         {
+            PrintImage(EventHandler(0));
             for (;;)
-            {
+            {   
                 int pos= 0;
                 if (Int32.TryParse(Console.ReadLine(), out pos)){
-                    PrintImage(handler(pos));
+                    PrintImage(EventHandler(pos));
                 }
             }
         }
@@ -30,7 +31,7 @@ namespace BankingSystem
         public void PrintImage(List<string> list)
         {
             Console.Clear();
-            foreach (string str in list)
+            foreach (var str in list)
             {
                 Console.WriteLine(str);
             }

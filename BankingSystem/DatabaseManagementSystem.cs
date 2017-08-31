@@ -11,7 +11,7 @@ namespace BankingSystem
         public long Id { get; set; }
         List<User> users;
         public void Add(User user)
-        {
+        { 
             this.users.Add(user);
         }
 
@@ -27,7 +27,7 @@ namespace BankingSystem
         }
 
 
-        public User GetUser(long iin)
+        public User GetUser(string iin)
         {
             for (int i = 0; i < users.Count; i++)
             {

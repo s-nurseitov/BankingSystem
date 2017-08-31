@@ -10,7 +10,6 @@ namespace BankingSystem
     {
         void Add(User user);
         void Delete(User user);
-        User GetUser(long id);
-        Account GetAccount(long id);
+        User GetUser(string id);
     }
 }

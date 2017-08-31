@@ -18,10 +18,12 @@ namespace BankingSystem
         private IWithdrawService withdraw;
         private IRegistrationService registration;
         private ITransferService transfer;
-
+        public Languages languages;
+        private List<string> activelanguage;
         public Server()
         {
-            atm = new ATM(new ATM.Handler(Handler));
+            atm = new ATM(new ATM.Handler(PickLanguages));
+            languages = new Languages();
             INotificationService notification = new Notification(this);
             IRefillService refill = new RefillService();
             IWithdrawService withdraw = new WithdrawService();
@@ -31,7 +33,20 @@ namespace BankingSystem
 
         public List<string> Handler(int command)
         {
-            return null;
+            activelanguage = languages.GetActiveLanguage(command);
+            return new List<string>() { activelanguage[0], };
+        }
+
+        public List<string> PickLanguages(int i)
+        {
+            List<string> str = new List<string> { "RU", "EN", "KZ" };
+            atm.EventHandler -= PickLanguages;
+            atm.EventHandler += Handler;
+            return str;
+        }
+        public void Start()
+        {
+            atm.HandlerCommand();
         }
     }
 }
