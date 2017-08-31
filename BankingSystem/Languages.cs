@@ -13,7 +13,7 @@ namespace BankingSystem
         {
             languageslist = new List<List<List<string>>>();
         }
-        public List<List<List<string>>> GetActiveLanguage(int pos)
+        public List<List<string>> GetActiveLanguage(int pos)
         {
             return languageslist[pos];
         }
