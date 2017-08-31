@@ -34,6 +34,7 @@ namespace BankingSystem
         public List<string> Handler(int command)
         {
             activelanguage = languages.GetActiveLanguage(command);
+
             return activelanguage[0];
         }
 
