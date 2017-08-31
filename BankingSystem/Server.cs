@@ -19,7 +19,7 @@ namespace BankingSystem
         private IRegistrationService registration;
         private ITransferService transfer;
         public Languages languages;
-        private List<string> activelanguage;
+        private List<List<string>> activelanguage;
         public Server()
         {
             atm = new ATM(new ATM.Handler(PickLanguages));
@@ -34,7 +34,7 @@ namespace BankingSystem
         public List<string> Handler(int command)
         {
             activelanguage = languages.GetActiveLanguage(command);
-            return new List<string>() { activelanguage[0], };
+            return activelanguage[0];
         }
 
         public List<string> PickLanguages(int i)
