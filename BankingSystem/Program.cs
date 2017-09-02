@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Net.Mail;
 using System.Threading;
+using System.Resources;
 using System.Globalization;
+using System.Reflection;
+
 namespace BankingSystem
 {
     class Program
@@ -15,12 +18,9 @@ namespace BankingSystem
         {
             //Server server = new Server();
             //server.Start();
-            Thread.CurrentThread.CurrentUICulture =CultureInfo.GetCultures(); 
-            foreach(var culture in CultureInfo.GetCultures())
-            {
-
-            }
-            Console.WriteLine(strings.Hello);
+            Thread.CurrentThread.CurrentUICulture=CultureInfo.GetCultureInfo("kk-KZ");
+          
+            Console.WriteLine(Resource.strings.Hello);
             Console.ReadLine();
         }
     }
