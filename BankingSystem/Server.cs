@@ -58,37 +58,94 @@ namespace BankingSystem
                 SetLanguage(command);
                 return result;
             }
-            else if (command.Contains(Resource.strings.Back))
+            else if (command.Contains(Resource.strings.Login))
+            {
+                atm.EventHandler -= Handler;
+                atm.EventHandler += Input;
+                FormMenu(command);
+                return result;
+            }
+            else if (command.Contains(Resource.strings.SignUp))
+            {
+                activeUser = new User();
+                registration.registration(activeUser);
+                dataBase.Add(activeUser);
+                FormMenu(command);
+                return result;
+            }
+            else if (command.Contains(Resource.strings.ViewMaps))
+            {
+                FormMenu(command);
+                return result;
+            }
+            else if (command.Contains(Resource.strings.SubmitRequest))
+            {
+                activeUser.Cards.Add(new Card());
+                FormMenu(command);
+                return result;
+            }
+            else if (command.Contains(Resource.strings.Map))
+            {
+                activeCard = dataBase.GetCards(activeUser)[Int32.Parse(command.Remove(1)) - 1];
+                FormMenu(command);
+                return result;
+            }
+            else if (command.Contains(Resource.strings.View) && command.Contains(Resource.strings.Account))
+            {
+                FormMenu(command);
+                return result;
+            }
+            else if (command.Contains(Resource.strings.Add) && command.Contains(Resource.strings.Account))
+            {
+                activeCard.Accounts.Add(new Account());
+                FormMenu(command);
+                return result;
+            }
+            else if (command.Contains(Resource.strings.Delete) && command.Contains(Resource.strings.Account))
+            {
+                activeCard.Accounts.Add(new Account());
+                FormMenu(command);
+                return result;
+            }
+            else if (command.Contains(Resource.strings.Account))
+            {
+                activeAccount = activeCard.Accounts[Int32.Parse(command.Remove(1)) - 1];
+                FormMenu(command);
+                return result;
+            }
+            else if (command.Contains(Resource.strings.Replenish))
+            {
+
+            }
+            FormMenu(command);
+            return result;
+        }
+
+        private void FormMenu(string command)
+        {
+            if (command.Contains(Resource.strings.Back))
             {
                 Back();
-                return result;
             }
             else if (command.Contains(Resource.strings.Login))
             {
                 result.Clear();
                 result.Add(Resource.strings.IIN + ": ");
-                atm.EventHandler -= Handler;
-                atm.EventHandler += Input;
                 indexMenu++;
-                return result;
             }
             else if (command.Contains(Resource.strings.SignUp))
             {
                 result.Clear();
-                activeUser = new User();
-                registration.registration(activeUser);
-                dataBase.Add(activeUser);
                 result.Add("1 - " + Resource.strings.ViewMaps);
                 result.Add("2 - " + Resource.strings.SubmitRequest);
                 result.Add("3 - " + Resource.strings.Back);
                 indexMenu++;
-                return result;
             }
             else if (command.Contains(Resource.strings.ViewMaps))
             {
+                result.Clear();
                 if (dataBase.GetCards(activeUser).Count != 0)
                 {
-                    result.Clear();
                     int i = 0;
                     for (; i < dataBase.GetCards(activeUser).Count; i++)
                     {
@@ -96,18 +153,17 @@ namespace BankingSystem
                     }
                     result.Add((i + 1) + " - " + Resource.strings.Back);
                     indexMenu++;
-                    return result;
                 }
-                result.Clear();
-                result.Add(Resource.strings.CardsNotFound + "\n1 - " + Resource.strings.ViewMaps);
-                result.Add("2 - " + Resource.strings.SubmitRequest);
-                result.Add("3 - " + Resource.strings.Back);
-                return result;
+                else
+                {
+                    result.Add(Resource.strings.CardsNotFound + "\n1 - " + Resource.strings.ViewMaps);
+                    result.Add("2 - " + Resource.strings.SubmitRequest);
+                    result.Add("3 - " + Resource.strings.Back);
+                }
             }
             else if (command.Contains(Resource.strings.SubmitRequest))
             {
                 result.Clear();
-                activeUser.Cards.Add(new Card());
                 int i = 0;
                 for (; i < dataBase.GetCards(activeUser).Count; i++)
                 {
@@ -115,18 +171,15 @@ namespace BankingSystem
                 }
                 result.Add((i + 1) + " - " + Resource.strings.Back);
                 indexMenu++;
-                return result;
             }
             else if (command.Contains(Resource.strings.Map))
             {
-                activeCard = dataBase.GetCards(activeUser)[Int32.Parse(command.Remove(1)) - 1];
                 result.Clear();
                 result.Add("1 - " + Resource.strings.View + " " + Resource.strings.Account);
                 result.Add("2 - " + Resource.strings.Add + " " + Resource.strings.Account);
                 result.Add("3 - " + Resource.strings.Delete + " " + Resource.strings.Account);
                 result.Add("4 - " + Resource.strings.Back);
                 indexMenu++;
-                return result;
             }
             else if (command.Contains(Resource.strings.View) && command.Contains(Resource.strings.Account))
             {
@@ -140,17 +193,18 @@ namespace BankingSystem
                     }
                     result.Add((i + 1) + " - " + Resource.strings.Back);
                     indexMenu++;
-                    return result;
                 }
-                result.Add(Resource.strings.AccountsNotFound + "\n1 - " + Resource.strings.View + " " + Resource.strings.Account);
-                result.Add("2 - " + Resource.strings.Add + " " + Resource.strings.Account);
-                result.Add("3 - " + Resource.strings.Delete + " " + Resource.strings.Account);
-                result.Add("4 - " + Resource.strings.Back);
+                else
+                {
+                    result.Add(Resource.strings.AccountsNotFound + "\n1 - " + Resource.strings.View + " " + Resource.strings.Account);
+                    result.Add("2 - " + Resource.strings.Add + " " + Resource.strings.Account);
+                    result.Add("3 - " + Resource.strings.Delete + " " + Resource.strings.Account);
+                    result.Add("4 - " + Resource.strings.Back);
+                }
             }
             else if (command.Contains(Resource.strings.Add) && command.Contains(Resource.strings.Account))
             {
                 result.Clear();
-                activeCard.Accounts.Add(new Account());
                 int i = 0;
                 for (; i < activeCard.Accounts.Count; i++)
                 {
@@ -158,12 +212,10 @@ namespace BankingSystem
                 }
                 result.Add((i + 1) + " - " + Resource.strings.Back);
                 indexMenu++;
-                return result;
             }
             else if (command.Contains(Resource.strings.Delete) && command.Contains(Resource.strings.Account))
             {
                 result.Clear();
-                activeCard.Accounts.Add(new Account());
                 int i = 0;
                 for (; i < activeCard.Accounts.Count; i++)
                 {
@@ -171,11 +223,9 @@ namespace BankingSystem
                 }
                 result.Add(i + " - " + Resource.strings.Back);
                 indexMenu++;
-                return result;
             }
             else if (command.Contains(Resource.strings.Account))
             {
-                activeAccount = activeCard.Accounts[Int32.Parse(command.Remove(1)) - 1];
                 result.Clear();
                 result.Add("1 - " + Resource.strings.Replenish);
                 result.Add("2 - " + Resource.strings.Withdraw);
@@ -183,16 +233,13 @@ namespace BankingSystem
                 result.Add("4 - " + Resource.strings.Info);
                 result.Add("5 - " + Resource.strings.Back);
                 indexMenu++;
-                return result;
             }
             else if (command.Contains(Resource.strings.Replenish))
             {
 
             }
-            return result;
+
         }
-
-
 
         public void Start()
         {
