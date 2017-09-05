@@ -9,7 +9,7 @@ namespace BankingSystem
     public class DatabaseManagementSystem : IDatabaseManagementSystem
     {
         public long Id { get; set; }
-        List<User> users;
+        List<User> users = new List<User>();
         public void Add(User user)
         { 
             this.users.Add(user);
@@ -35,6 +35,11 @@ namespace BankingSystem
                     return users[i];
             }
             return null;
+        }
+
+        public List<Card> GetCards(User user)
+        {
+            return user.Cards;
         }
     }
 }
