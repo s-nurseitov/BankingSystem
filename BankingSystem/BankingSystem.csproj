@@ -88,9 +88,6 @@
     <Compile Include="Сurrency.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Telegram-Bot-Tutorial\ApplicationInsights.config">
-      <Link>ApplicationInsights.config</Link>
-    </None>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
