@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Account" xml:space="preserve">
+    <value>шот</value>
+  </data>
+  <data name="AccountsNotFound" xml:space="preserve">
+    <value>Есептік жазбалар табылмады</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Қосу</value>
+  </data>
   <data name="Back" xml:space="preserve">
     <value>Артқа</value>
   </data>
@@ -125,6 +134,9 @@
   </data>
   <data name="CardsNotFound" xml:space="preserve">
     <value>Карталар табылған жоқ</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Жою</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>Электрондық пошта</value>
@@ -141,6 +153,9 @@
   <data name="IINNotFound" xml:space="preserve">
     <value>ЖСН табылмады</value>
   </data>
+  <data name="Info" xml:space="preserve">
+    <value>Ақпарат</value>
+  </data>
   <data name="Login" xml:space="preserve">
     <value>Кіру</value>
   </data>
@@ -153,6 +168,9 @@
   <data name="PhoneNumber" xml:space="preserve">
     <value>Телефон нөмірі</value>
   </data>
+  <data name="Replenish" xml:space="preserve">
+    <value>Толтыру</value>
+  </data>
   <data name="ReplenishAccount" xml:space="preserve">
     <value>Шотты толтырыңыз</value>
   </data>
@@ -162,7 +180,16 @@
   <data name="SubmitRequest" xml:space="preserve">
     <value>Сұрау жіберу</value>
   </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>Аудару</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>Қарау</value>
+  </data>
   <data name="ViewMaps" xml:space="preserve">
     <value>Карталарды қарау</value>
+  </data>
+  <data name="Withdraw" xml:space="preserve">
+    <value>Алу</value>
   </data>
 </root>

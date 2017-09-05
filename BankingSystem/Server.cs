@@ -22,11 +22,14 @@ namespace BankingSystem
         private ITransferService transfer;
         private IDatabaseManagementSystem dataBase;
         private User activeUser;
+        private Card activeCard;
+        private Account activeAccount;
         private List<string> result;
         private int indexMenu = 0;
+        private bool firstCall = true;
         public Server()
         {
-            atm = new ATM(new ATM.Handler(PickLanguages));
+            atm = new ATM(new ATM.Handler(Handler));
             notification = new Notification(this);
             refill = new RefillService();
             withdraw = new WithdrawService();
@@ -34,66 +37,30 @@ namespace BankingSystem
             transfer = new TransferService();
             dataBase = new DatabaseManagementSystem();
             activeUser = new BankingSystem.User();
+            activeCard = new Card();
+            activeAccount = new Account();
             result = new List<string>();
         }
 
         public List<string> Handler(string command)
         {
             atm.EventHandler -= Input;
-            if (command.Contains("RU"))
+            if (firstCall)
             {
-                Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("ru-RU");
-                result.Clear();
-                result.Add("1 - " + Resource.strings.Login);
-                result.Add("2 - " + Resource.strings.SignUp);
-                result.Add("3 - " + Resource.strings.Back);
-                indexMenu++;
+                firstCall = false;
+                result.Add("1 - RU");
+                result.Add("2 - EN");
+                result.Add("3 - KZ");
                 return result;
             }
-            else if (command.Contains("EN"))
+            if (command.Contains("RU") || command.Contains("EN") || command.Contains("KZ"))
             {
-                Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("en-EN");
-                result.Clear();
-                result.Add("1 - " + Resource.strings.Login);
-                result.Add("2 - " + Resource.strings.SignUp);
-                result.Add("3 - " + Resource.strings.Back);
-                indexMenu++;
-                return result;
-            }
-            else if (command.Contains("KZ"))
-            {
-                Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("kk-KZ");
-                result.Clear();
-                result.Add("1 - " + Resource.strings.Login);
-                result.Add("2 - " + Resource.strings.SignUp);
-                result.Add("3 - " + Resource.strings.Back);
-                indexMenu++;
+                SetLanguage(command);
                 return result;
             }
             else if (command.Contains(Resource.strings.Back))
             {
-                if (indexMenu == 1)
-                {
-                    indexMenu--;
-                    result.Clear();
-                    result = PickLanguages(null);
-                }
-                else if (indexMenu == 2)
-                {
-                    indexMenu--;
-                    result.Clear();
-                    result.Add("1 - " + Resource.strings.Login);
-                    result.Add("2 - " + Resource.strings.SignUp);
-                    result.Add("3 - " + Resource.strings.Back);
-                }
-                else if (indexMenu == 3)
-                {
-                    indexMenu--;
-                    result.Clear();
-                    result.Add("1 - " + Resource.strings.ViewMaps);
-                    result.Add("2 - " + Resource.strings.SubmitRequest);
-                    result.Add("3 - " + Resource.strings.Back);
-                }
+                Back();
                 return result;
             }
             else if (command.Contains(Resource.strings.Login))
@@ -102,64 +69,131 @@ namespace BankingSystem
                 result.Add(Resource.strings.IIN + ": ");
                 atm.EventHandler -= Handler;
                 atm.EventHandler += Input;
+                indexMenu++;
                 return result;
             }
             else if (command.Contains(Resource.strings.SignUp))
             {
                 result.Clear();
+                activeUser = new User();
                 registration.registration(activeUser);
                 dataBase.Add(activeUser);
                 result.Add("1 - " + Resource.strings.ViewMaps);
                 result.Add("2 - " + Resource.strings.SubmitRequest);
                 result.Add("3 - " + Resource.strings.Back);
+                indexMenu++;
                 return result;
             }
             else if (command.Contains(Resource.strings.ViewMaps))
             {
-                if (dataBase.GetCards(activeUser).Count == 0)
+                if (dataBase.GetCards(activeUser).Count != 0)
                 {
                     result.Clear();
                     int i = 0;
                     for (; i < dataBase.GetCards(activeUser).Count; i++)
                     {
                         result.Add((i + 1) + " - " + Resource.strings.Map + i);
-                        indexMenu++;
                     }
                     result.Add((i + 1) + " - " + Resource.strings.Back);
+                    indexMenu++;
+                    return result;
                 }
                 result.Clear();
                 result.Add(Resource.strings.CardsNotFound + "\n1 - " + Resource.strings.ViewMaps);
                 result.Add("2 - " + Resource.strings.SubmitRequest);
                 result.Add("3 - " + Resource.strings.Back);
-                indexMenu++;
                 return result;
             }
             else if (command.Contains(Resource.strings.SubmitRequest))
             {
                 result.Clear();
                 activeUser.Cards.Add(new Card());
-                result.Clear();
                 int i = 0;
                 for (; i < dataBase.GetCards(activeUser).Count; i++)
                 {
                     result.Add((i + 1) + " - " + Resource.strings.Map + i);
-                    indexMenu++;
                 }
                 result.Add((i + 1) + " - " + Resource.strings.Back);
                 indexMenu++;
                 return result;
             }
+            else if (command.Contains(Resource.strings.Map))
+            {
+                activeCard = dataBase.GetCards(activeUser)[Int32.Parse(command.Remove(1)) - 1];
+                result.Clear();
+                result.Add("1 - " + Resource.strings.View + " " + Resource.strings.Account);
+                result.Add("2 - " + Resource.strings.Add + " " + Resource.strings.Account);
+                result.Add("3 - " + Resource.strings.Delete + " " + Resource.strings.Account);
+                result.Add("4 - " + Resource.strings.Back);
+                indexMenu++;
+                return result;
+            }
+            else if (command.Contains(Resource.strings.View) && command.Contains(Resource.strings.Account))
+            {
+                result.Clear();
+                if (activeCard.Accounts.Count != 0)
+                {
+                    int i = 0;
+                    for (; i < activeCard.Accounts.Count; i++)
+                    {
+                        result.Add((i + 1) + " - " + Resource.strings.Account + i);
+                    }
+                    result.Add((i + 1) + " - " + Resource.strings.Back);
+                    indexMenu++;
+                    return result;
+                }
+                result.Add(Resource.strings.AccountsNotFound + "\n1 - " + Resource.strings.View + " " + Resource.strings.Account);
+                result.Add("2 - " + Resource.strings.Add + " " + Resource.strings.Account);
+                result.Add("3 - " + Resource.strings.Delete + " " + Resource.strings.Account);
+                result.Add("4 - " + Resource.strings.Back);
+            }
+            else if (command.Contains(Resource.strings.Add) && command.Contains(Resource.strings.Account))
+            {
+                result.Clear();
+                activeCard.Accounts.Add(new Account());
+                int i = 0;
+                for (; i < activeCard.Accounts.Count; i++)
+                {
+                    result.Add((i + 1) + " - " + Resource.strings.Account + i);
+                }
+                result.Add((i + 1) + " - " + Resource.strings.Back);
+                indexMenu++;
+                return result;
+            }
+            else if (command.Contains(Resource.strings.Delete) && command.Contains(Resource.strings.Account))
+            {
+                result.Clear();
+                activeCard.Accounts.Add(new Account());
+                int i = 0;
+                for (; i < activeCard.Accounts.Count; i++)
+                {
+                    result.Add((i + 1) + " - " + Resource.strings.Account + i);
+                }
+                result.Add(i + " - " + Resource.strings.Back);
+                indexMenu++;
+                return result;
+            }
+            else if (command.Contains(Resource.strings.Account))
+            {
+                activeAccount = activeCard.Accounts[Int32.Parse(command.Remove(1)) - 1];
+                result.Clear();
+                result.Add("1 - " + Resource.strings.Replenish);
+                result.Add("2 - " + Resource.strings.Withdraw);
+                result.Add("3 - " + Resource.strings.Transfer);
+                result.Add("4 - " + Resource.strings.Info);
+                result.Add("5 - " + Resource.strings.Back);
+                indexMenu++;
+                return result;
+            }
+            else if (command.Contains(Resource.strings.Replenish))
+            {
 
+            }
             return result;
         }
 
-        public List<string> PickLanguages(string s)
-        {
-            List<string> str = new List<string> { "1 - RU", "2 - EN", "3 - KZ" };
-            atm.EventHandler -= PickLanguages;
-            atm.EventHandler += Handler;
-            return str;
-        }
+
+
         public void Start()
         {
             atm.HandlerCommand();
@@ -167,7 +201,7 @@ namespace BankingSystem
 
         private List<string> Input(string IIN)
         {
-            List<string> result = new List<string>();
+            result.Clear();
             activeUser = dataBase.GetUser(IIN);
             if (activeUser == null)
             {
@@ -178,10 +212,99 @@ namespace BankingSystem
             result.Add("1 - " + Resource.strings.ViewMaps);
             result.Add("2 - " + Resource.strings.SubmitRequest);
             result.Add("3 - " + Resource.strings.Back);
-            indexMenu++;
             atm.EventHandler -= Input;
             atm.EventHandler += Handler;
             return result;
+        }
+
+        private void Back()
+        {
+            if (indexMenu == 1)
+            {
+                indexMenu--;
+                result.Clear();
+                result.Add("1 - RU");
+                result.Add("2 - EN");
+                result.Add("3 - KZ");
+            }
+            else if (indexMenu == 2)
+            {
+                indexMenu--;
+                result.Clear();
+                result.Add("1 - " + Resource.strings.Login);
+                result.Add("2 - " + Resource.strings.SignUp);
+                result.Add("3 - " + Resource.strings.Back);
+            }
+            else if (indexMenu == 3)
+            {
+                indexMenu--;
+                result.Clear();
+                result.Add("1 - " + Resource.strings.ViewMaps);
+                result.Add("2 - " + Resource.strings.SubmitRequest);
+                result.Add("3 - " + Resource.strings.Back);
+            }
+            else if (indexMenu == 4)
+            {
+                indexMenu--;
+                result.Clear();
+                int i = 0;
+                for (; i < dataBase.GetCards(activeUser).Count; i++)
+                {
+                    result.Add((i + 1) + " - " + Resource.strings.Map + i);
+                }
+                result.Add((i + 1) + " - " + Resource.strings.Back);
+            }
+            else if (indexMenu == 5)
+            {
+                indexMenu--;
+                result.Clear();
+                result.Add("1 - " + Resource.strings.View + " " + Resource.strings.Account);
+                result.Add("2 - " + Resource.strings.Add + " " + Resource.strings.Account);
+                result.Add("3 - " + Resource.strings.Delete + " " + Resource.strings.Account);
+                result.Add("4 - " + Resource.strings.Back);
+            }
+            else if (indexMenu == 6)
+            {
+                indexMenu--;
+                result.Clear();
+                int i = 0;
+                for (; i < activeCard.Accounts.Count; i++)
+                {
+                    result.Add((i + 1) + " - " + Resource.strings.Account + i);
+                }
+                result.Add((i + 1) + " - " + Resource.strings.Back);
+            }
+        }
+
+        private void SetLanguage(string language)
+        {
+            if (language.Contains("RU"))
+            {
+                Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("ru-RU");
+                result.Clear();
+                result.Add("1 - " + Resource.strings.Login);
+                result.Add("2 - " + Resource.strings.SignUp);
+                result.Add("3 - " + Resource.strings.Back);
+                indexMenu++;
+            }
+            else if (language.Contains("EN"))
+            {
+                Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("en-EN");
+                result.Clear();
+                result.Add("1 - " + Resource.strings.Login);
+                result.Add("2 - " + Resource.strings.SignUp);
+                result.Add("3 - " + Resource.strings.Back);
+                indexMenu++;
+            }
+            else if (language.Contains("KZ"))
+            {
+                Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("kk-KZ");
+                result.Clear();
+                result.Add("1 - " + Resource.strings.Login);
+                result.Add("2 - " + Resource.strings.SignUp);
+                result.Add("3 - " + Resource.strings.Back);
+                indexMenu++;
+            }
         }
     }
 }

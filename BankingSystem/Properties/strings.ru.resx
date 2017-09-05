@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Account" xml:space="preserve">
+    <value>счёт</value>
+  </data>
+  <data name="AccountsNotFound" xml:space="preserve">
+    <value>Счета не найдены</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
   <data name="Back" xml:space="preserve">
     <value>Назад</value>
   </data>
@@ -125,6 +134,9 @@
   </data>
   <data name="CardsNotFound" xml:space="preserve">
     <value>Карты не найдены</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Удалить</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>Электронная почта</value>
@@ -141,6 +153,9 @@
   <data name="IINNotFound" xml:space="preserve">
     <value>ИИН не найден</value>
   </data>
+  <data name="Info" xml:space="preserve">
+    <value>Информация</value>
+  </data>
   <data name="Login" xml:space="preserve">
     <value>Вход</value>
   </data>
@@ -153,6 +168,9 @@
   <data name="PhoneNumber" xml:space="preserve">
     <value>Номер телефона</value>
   </data>
+  <data name="Replenish" xml:space="preserve">
+    <value>Пополнить</value>
+  </data>
   <data name="ReplenishAccount" xml:space="preserve">
     <value>Пополнить счёт</value>
   </data>
@@ -162,7 +180,16 @@
   <data name="SubmitRequest" xml:space="preserve">
     <value>Подать запрос</value>
   </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>Перевести</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>Посмотреть</value>
+  </data>
   <data name="ViewMaps" xml:space="preserve">
     <value>Посмотреть карты</value>
+  </data>
+  <data name="Withdraw" xml:space="preserve">
+    <value>Снять</value>
   </data>
 </root>
