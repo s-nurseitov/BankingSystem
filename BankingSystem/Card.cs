@@ -9,5 +9,9 @@ namespace BankingSystem
         public int CVV { get; set; }
         public List<Account> Accounts { get; set; }
 
+        public Card()
+        {
+            Accounts = new List<Account>();
+        }
     }
 }
