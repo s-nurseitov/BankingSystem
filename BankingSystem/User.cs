@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace BankingSystem
 {
@@ -6,12 +7,18 @@ namespace BankingSystem
     {
         public long Id { get; set; }
         public string IIN { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string MiddleName { get; set; }
-        public string IdCardNumber { get; set; }
-        public string TelephoneNumber { get; set; }
+        public string FullName { get; set; }
+        public string PhoneNumber { get; set; }
         public List<Card> Cards { get; set; }
         public string Email { get; set; }
+
+        public User()
+        {
+            IIN ="";
+            FullName = "";
+            PhoneNumber = "";
+            Cards = new List<Card>();
+            Email = "";
+        }
     }
 }

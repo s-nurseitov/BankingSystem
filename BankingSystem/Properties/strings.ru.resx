@@ -117,7 +117,49 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CardNumber" xml:space="preserve">
+    <value>Номер карты</value>
+  </data>
+  <data name="CardsNotFound" xml:space="preserve">
+    <value>Карты не найдены</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Электронная почта</value>
+  </data>
+  <data name="FullName" xml:space="preserve">
+    <value>ФИО</value>
+  </data>
   <data name="Hello" xml:space="preserve">
     <value>Привет</value>
+  </data>
+  <data name="IIN" xml:space="preserve">
+    <value>ИИН</value>
+  </data>
+  <data name="IINNotFound" xml:space="preserve">
+    <value>ИИН не найден</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Вход</value>
+  </data>
+  <data name="Map" xml:space="preserve">
+    <value>Карта</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>Номер телефона</value>
+  </data>
+  <data name="ReplenishAccount" xml:space="preserve">
+    <value>Пополнить счёт</value>
+  </data>
+  <data name="SignUp" xml:space="preserve">
+    <value>Регистрация</value>
+  </data>
+  <data name="SubmitRequest" xml:space="preserve">
+    <value>Подать запрос</value>
+  </data>
+  <data name="ViewMaps" xml:space="preserve">
+    <value>Посмотреть карты</value>
   </data>
 </root>

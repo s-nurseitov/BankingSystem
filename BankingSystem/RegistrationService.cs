@@ -7,26 +7,19 @@ namespace BankingSystem
     {
         void IRegistrationService.registration(User user)
         {
-           // Write("Введите ID:");
-           // user.Id = Read();
+            Clear();
 
-            Write("Введите ИИН:");
+            Write(Resource.strings.IIN+": ");
             user.IIN = ReadLine();
 
-            Write("Введите имя:");
-            user.FirstName = ReadLine();
+            Write(Resource.strings.FullName+": ");
+            user.FullName = ReadLine();
 
-            Write("Введите фамилию:");
-            user.LastName = ReadLine();
+            Write(Resource.strings.PhoneNumber + ": ");
+            user.PhoneNumber = ReadLine();
 
-            Write("Введите второе имя:");
-            user.MiddleName = ReadLine();
-
-            Write("Введите номер удостоверения личности:");
-            user.IdCardNumber = ReadLine();
-
-            Write("Введите номер телефона:");
-            user.TelephoneNumber = ReadLine();   
+            Write(Resource.strings.Email + ": ");
+            user.Email = ReadLine();
         }
     }
 }

@@ -61,7 +61,6 @@
     <Compile Include="IRegistrationService.cs" />
     <Compile Include="ITransferService.cs" />
     <Compile Include="IWithdrawService.cs" />
-    <Compile Include="Languages.cs" />
     <Compile Include="Notification.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -11,5 +11,6 @@ namespace BankingSystem
         void Add(User user);
         void Delete(User user);
         User GetUser(string id);
+        List<Card> GetCards(User user);
     }
 }
