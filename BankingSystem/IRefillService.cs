@@ -8,5 +8,6 @@ namespace BankingSystem
 {
     public interface IRefillService
     {
+        bool Refill(Account account, int sum);
     }
 }

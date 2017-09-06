@@ -15,22 +15,25 @@ namespace BankingSystem
         public bool Notify(User user, string subject, string body)
         {
             MailMessage msg = new MailMessage();
-
-            msg.From = new MailAddress("SDPBank.162@gmail.com");
-            msg.To.Add(user.Email);
-            msg.Subject = subject;
-            msg.Body = body;
-            SmtpClient client = new SmtpClient();
-            client.UseDefaultCredentials = true;
-            client.Host = "smtp.gmail.com";
-            client.Port = 587;
-            client.EnableSsl = true;
-            client.DeliveryMethod = SmtpDeliveryMethod.Network;
-            client.Credentials = new NetworkCredential("SDPBank.162@gmail.com", "qwerty123*");
-            client.Timeout = 20000;
             try
             {
+                msg.From = new MailAddress("SDPBank.162@gmail.com");
+                msg.To.Add(user.Email);
+                msg.Subject = subject;
+                msg.Body = body;
+                SmtpClient client = new SmtpClient();
+                client.UseDefaultCredentials = true;
+                client.Host = "smtp.gmail.com";
+                client.Port = 587;
+                client.EnableSsl = true;
+                client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                client.Credentials = new NetworkCredential("SDPBank.162@gmail.com", "qwerty123*");
+                client.Timeout = 20000;
                 client.Send(msg);
+            }
+            catch (System.FormatException ex)
+            {
+                //Console.WriteLine(ex.Message);
             }
             catch (Exception)
             {

@@ -38,7 +38,7 @@ namespace BankingSystem
             dataBase = new DatabaseManagementSystem();
             activeUser = new BankingSystem.User();
             activeCard = new Card();
-            activeAccount = new Account();
+            activeAccount = new Account(0);
             result = new List<string>();
         }
 
@@ -53,70 +53,84 @@ namespace BankingSystem
                 result.Add("3 - KZ");
                 return result;
             }
-            if (command.Contains("RU") || command.Contains("EN") || command.Contains("KZ"))
-            {
-                SetLanguage(command);
-                return result;
-            }
-            else if (command.Contains(Resource.strings.Login))
+
+            if (command.Contains(Resource.strings.Login))
             {
                 atm.EventHandler -= Handler;
                 atm.EventHandler += Input;
-                FormMenu(command);
-                return result;
             }
+
             else if (command.Contains(Resource.strings.SignUp))
             {
                 activeUser = new User();
                 registration.registration(activeUser);
                 dataBase.Add(activeUser);
-                FormMenu(command);
-                return result;
             }
-            else if (command.Contains(Resource.strings.ViewMaps))
-            {
-                FormMenu(command);
-                return result;
-            }
+
             else if (command.Contains(Resource.strings.SubmitRequest))
             {
                 activeUser.Cards.Add(new Card());
-                FormMenu(command);
-                return result;
             }
+
             else if (command.Contains(Resource.strings.Map))
             {
                 activeCard = dataBase.GetCards(activeUser)[Int32.Parse(command.Remove(1)) - 1];
-                FormMenu(command);
-                return result;
             }
-            else if (command.Contains(Resource.strings.View) && command.Contains(Resource.strings.Account))
-            {
-                FormMenu(command);
-                return result;
-            }
-            else if (command.Contains(Resource.strings.Add) && command.Contains(Resource.strings.Account))
-            {
-                activeCard.Accounts.Add(new Account());
-                FormMenu(command);
-                return result;
-            }
+
             else if (command.Contains(Resource.strings.Delete) && command.Contains(Resource.strings.Account))
             {
-                activeCard.Accounts.Add(new Account());
-                FormMenu(command);
-                return result;
+                atm.EventHandler -= Handler;
+                atm.EventHandler += DeleteAccount;
             }
-            else if (command.Contains(Resource.strings.Account))
+
+            else if (command.Contains(Resource.strings.Account) && indexMenu == 5)
             {
-                activeAccount = activeCard.Accounts[Int32.Parse(command.Remove(1)) - 1];
-                FormMenu(command);
-                return result;
+                if (activeCard.Accounts.Count != 0)
+                    activeAccount = activeCard.Accounts[Int32.Parse(command.Remove(1)) - 1];
             }
+
             else if (command.Contains(Resource.strings.Replenish))
+            {
+                atm.EventHandler -= Handler;
+                atm.EventHandler += ReplenishAccount;
+            }
+
+            else if (command.Contains(Resource.strings.Withdraw))
+            {
+                atm.EventHandler -= Handler;
+                atm.EventHandler += WithdrawAccount;
+            }
+
+            else if (command.Contains(Resource.strings.Transfer))
             {
 
             }
+
+            else if (indexMenu == 5)
+            {
+                bool findCurrency = false;
+                Сurrency currency = 0;
+                for (int i = 0; i < 13; i++)
+                {
+                    string str = " " + (Сurrency)i;
+                    if (command.Contains(str))
+                    {
+                        currency = (Сurrency)i;
+                        findCurrency = true;
+                    }
+                }
+                if (findCurrency)
+                {
+                    activeCard.Accounts.Add(new Account(currency));
+                }
+            }
+
+            else if (command.Contains("RU") || command.Contains("EN") || command.Contains("KZ"))
+            {
+                SetLanguage(command);
+                return result;
+            }
+
             FormMenu(command);
             return result;
         }
@@ -204,24 +218,14 @@ namespace BankingSystem
             }
             else if (command.Contains(Resource.strings.Add) && command.Contains(Resource.strings.Account))
             {
-                result.Clear();
-                int i = 0;
-                for (; i < activeCard.Accounts.Count; i++)
-                {
-                    result.Add((i + 1) + " - " + Resource.strings.Account + i);
-                }
-                result.Add((i + 1) + " - " + Resource.strings.Back);
+                FormCurrency();
                 indexMenu++;
             }
+
             else if (command.Contains(Resource.strings.Delete) && command.Contains(Resource.strings.Account))
             {
                 result.Clear();
-                int i = 0;
-                for (; i < activeCard.Accounts.Count; i++)
-                {
-                    result.Add((i + 1) + " - " + Resource.strings.Account + i);
-                }
-                result.Add(i + " - " + Resource.strings.Back);
+                result.Add(Resource.strings.AccountNumber + ": ");
                 indexMenu++;
             }
             else if (command.Contains(Resource.strings.Account))
@@ -234,11 +238,62 @@ namespace BankingSystem
                 result.Add("5 - " + Resource.strings.Back);
                 indexMenu++;
             }
+
             else if (command.Contains(Resource.strings.Replenish))
+            {
+                result.Clear();
+                result.Add(Resource.strings.Sum + ": ");
+                indexMenu++;
+            }
+
+            else if (command.Contains(Resource.strings.Withdraw))
+            {
+                result.Clear();
+                result.Add(Resource.strings.Sum + ": ");
+                indexMenu++;
+            }
+
+            else if (command.Contains(Resource.strings.Transfer))
             {
 
             }
 
+            else if (command.Contains(Resource.strings.Info))
+            {
+                result.Clear();
+                result.Add("1 - " + Resource.strings.Back);
+                result.Add(Resource.strings.AccountNumber + ": " + activeAccount.AccountNumber);
+                result.Add(Resource.strings.Sum + ": " + activeAccount.MoneyOnAccount + " " + activeAccount.Currency);
+                indexMenu++;
+            }
+
+            else if (indexMenu == 5)
+            {
+                bool findCurrency = false;
+                for (int i = 0; i < 13; i++)
+                {
+                    string str = " " + (Сurrency)i;
+                    if (command.Contains(str))
+                    {
+                        findCurrency = true;
+                    }
+                }
+                if (findCurrency)
+                {
+                    Back();
+                }
+            }
+
+        }
+
+        private void FormCurrency()
+        {
+            result.Clear();
+            result.Add("1 - " + Resource.strings.Back);
+            for (int i = 1; i < 14; i++)
+            {
+                result.Add((i + 1) + " - " + (Сurrency)(i - 1));
+            }
         }
 
         public void Start()
@@ -259,8 +314,95 @@ namespace BankingSystem
             result.Add("1 - " + Resource.strings.ViewMaps);
             result.Add("2 - " + Resource.strings.SubmitRequest);
             result.Add("3 - " + Resource.strings.Back);
-            atm.EventHandler -= Input;
-            atm.EventHandler += Handler;
+            return result;
+        }
+
+        private List<string> ReplenishAccount(string sum)
+        {
+            result.Clear();
+            int sumAdd = 0;
+            if(int.TryParse(sum,out sumAdd))
+            {
+
+                if(refill.Refill(activeAccount, sumAdd))
+                {
+                    string str = String.Format("{0}: {1}\n{2}: {3}\n{4}: {5} {6}\n{7}: {8} {9}", Resource.strings.CardNumber,
+                        activeCard.NumberCard, Resource.strings.AccountNumber, activeAccount.AccountNumber,
+                        Resource.strings.Replenish, sumAdd, activeAccount.Currency,
+                        Resource.strings.Available, activeAccount.MoneyOnAccount, activeAccount.Currency);
+                    string subject = "SDPBank";
+                    changeAccount(activeUser, subject, str);
+                    Back();
+                    atm.EventHandler -= ReplenishAccount;
+                    atm.EventHandler += Handler;
+                }
+                else
+                {
+                    result.Add(Resource.strings.Error);
+                    result.Add(Resource.strings.Sum + ": ");
+                }
+            }
+            else
+            {
+                result.Add(Resource.strings.Error);
+                result.Add(Resource.strings.Sum + ": ");
+            }
+            return result;
+        }
+
+        private List<string> WithdrawAccount(string sum)
+        {
+            result.Clear();
+            int sumWithdraw = 0;
+            if (int.TryParse(sum, out sumWithdraw))
+            {
+
+                if (withdraw.Withdraw(activeAccount, sumWithdraw))
+                {
+                    string str = String.Format("{0}: {1}\n{2}: {3}\n{4}: {5} {6}\n{7}: {8} {9}", Resource.strings.CardNumber,
+                        activeCard.NumberCard, Resource.strings.AccountNumber, activeAccount.AccountNumber,
+                        Resource.strings.Withdraw, sumWithdraw, activeAccount.Currency,
+                        Resource.strings.Available, activeAccount.MoneyOnAccount, activeAccount.Currency);
+                    string subject = "SDPBank";
+                    changeAccount(activeUser, subject, str);
+                    Back();
+                    atm.EventHandler -= ReplenishAccount;
+                    atm.EventHandler += Handler;
+                }
+                else
+                {
+                    result.Add(Resource.strings.Error);
+                    result.Add(Resource.strings.Sum + ": ");
+                }
+            }
+            else
+            {
+                result.Add(Resource.strings.Error);
+                result.Add(Resource.strings.Sum + ": ");
+            }
+            return result;
+        }
+
+        private List<string> DeleteAccount(string accountNubmerStr)
+        {
+            result.Clear();
+            long accountNumber = 0;
+            if (long.TryParse(accountNubmerStr, out accountNumber))
+            {
+                for (int i = 0; i < activeCard.Accounts.Count; i++)
+                {
+                    if (accountNumber == activeCard.Accounts[i].AccountNumber)
+                    {
+                        activeCard.Accounts.Remove(activeCard.Accounts[i]);
+                        Back();
+                        atm.EventHandler -= DeleteAccount;
+                        atm.EventHandler += Handler;
+                        return result;
+                    }
+                }
+            }
+            result.Add(Resource.strings.AccountNumberNotFound);
+            result.Add(Resource.strings.IIN + ": ");
             return result;
         }
 
@@ -320,6 +462,16 @@ namespace BankingSystem
                     result.Add((i + 1) + " - " + Resource.strings.Account + i);
                 }
                 result.Add((i + 1) + " - " + Resource.strings.Back);
+            }
+            else if (indexMenu == 7)
+            {
+                indexMenu--;
+                result.Clear();
+                result.Add("1 - " + Resource.strings.Replenish);
+                result.Add("2 - " + Resource.strings.Withdraw);
+                result.Add("3 - " + Resource.strings.Transfer);
+                result.Add("4 - " + Resource.strings.Info);
+                result.Add("5 - " + Resource.strings.Back);
             }
         }
 

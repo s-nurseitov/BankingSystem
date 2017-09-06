@@ -120,11 +120,20 @@
   <data name="Account" xml:space="preserve">
     <value>счёт</value>
   </data>
+  <data name="AccountNumber" xml:space="preserve">
+    <value>Номер счёта</value>
+  </data>
+  <data name="AccountNumberNotFound" xml:space="preserve">
+    <value>Номер счёта не найден</value>
+  </data>
   <data name="AccountsNotFound" xml:space="preserve">
     <value>Счета не найдены</value>
   </data>
   <data name="Add" xml:space="preserve">
     <value>Добавить</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>Доступно</value>
   </data>
   <data name="Back" xml:space="preserve">
     <value>Назад</value>
@@ -140,6 +149,9 @@
   </data>
   <data name="Email" xml:space="preserve">
     <value>Электронная почта</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Ошибка</value>
   </data>
   <data name="FullName" xml:space="preserve">
     <value>ФИО</value>
@@ -179,6 +191,9 @@
   </data>
   <data name="SubmitRequest" xml:space="preserve">
     <value>Подать запрос</value>
+  </data>
+  <data name="Sum" xml:space="preserve">
+    <value>Сумма</value>
   </data>
   <data name="Transfer" xml:space="preserve">
     <value>Перевести</value>
