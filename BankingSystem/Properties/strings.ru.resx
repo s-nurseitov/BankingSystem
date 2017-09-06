@@ -195,6 +195,9 @@
   <data name="Sum" xml:space="preserve">
     <value>Сумма</value>
   </data>
+  <data name="ToAccount" xml:space="preserve">
+    <value>на счёт</value>
+  </data>
   <data name="Transfer" xml:space="preserve">
     <value>Перевести</value>
   </data>

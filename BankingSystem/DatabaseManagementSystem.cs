@@ -41,5 +41,23 @@ namespace BankingSystem
         {
             return user.Cards;
         }
+
+        public Account FindAccount(long accountNumber)
+        {
+            foreach(User user in users)
+            {
+                foreach(Card card in user.Cards)
+                {
+                    foreach(Account account in card.Accounts)
+                    {
+                        if (accountNumber == account.AccountNumber)
+                        {
+                            return account;
+                        }
+                    }
+                }
+            }
+            return null;
+        }
     }
 }

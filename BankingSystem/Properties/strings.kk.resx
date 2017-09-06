@@ -195,6 +195,9 @@
   <data name="Sum" xml:space="preserve">
     <value>Cома</value>
   </data>
+  <data name="ToAccount" xml:space="preserve">
+    <value>шотқа</value>
+  </data>
   <data name="Transfer" xml:space="preserve">
     <value>Аудару</value>
   </data>

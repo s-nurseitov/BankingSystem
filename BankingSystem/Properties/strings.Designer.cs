@@ -295,6 +295,15 @@ namespace Resource {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на To account.
+        /// </summary>
+        public static string ToAccount {
+            get {
+                return ResourceManager.GetString("ToAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Transfer.
         /// </summary>
         public static string Transfer {

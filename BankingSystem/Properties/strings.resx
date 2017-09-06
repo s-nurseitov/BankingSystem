@@ -195,6 +195,9 @@
   <data name="Sum" xml:space="preserve">
     <value>Sum</value>
   </data>
+  <data name="ToAccount" xml:space="preserve">
+    <value>To account</value>
+  </data>
   <data name="Transfer" xml:space="preserve">
     <value>Transfer</value>
   </data>

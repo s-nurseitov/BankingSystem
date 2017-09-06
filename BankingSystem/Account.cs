@@ -8,15 +8,15 @@ namespace BankingSystem
         public long AccountNumber { get; set; }
         public double MoneyOnAccount { get; set; }
         public Сurrency Currency { get; private set; }
-        private static long accountCounter;
+        private static Random accountCounter;
 
         static Account()
         {
-            accountCounter = 100;
+            accountCounter = new Random();
         }
         public Account(Сurrency currency)
         {
-            AccountNumber = accountCounter++;
+            AccountNumber = accountCounter.Next();
             Currency = currency;
         }
     }

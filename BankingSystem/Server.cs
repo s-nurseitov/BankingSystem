@@ -11,7 +11,6 @@ namespace BankingSystem
     public class Server
     {
         public long Id { get; set; }
-
         public delegate bool Notify(User user, string subject, string body);
         public event Notify changeAccount;
         private ATM atm;
@@ -27,6 +26,8 @@ namespace BankingSystem
         private List<string> result;
         private int indexMenu = 0;
         private bool firstCall = true;
+        private bool firstTransferCall = true;
+        private int transferSum = 0;
         public Server()
         {
             atm = new ATM(new ATM.Handler(Handler));
@@ -103,7 +104,8 @@ namespace BankingSystem
 
             else if (command.Contains(Resource.strings.Transfer))
             {
-
+                atm.EventHandler -= Handler;
+                atm.EventHandler += TransferAccount;
             }
 
             else if (indexMenu == 5)
@@ -255,7 +257,9 @@ namespace BankingSystem
 
             else if (command.Contains(Resource.strings.Transfer))
             {
-
+                result.Clear();
+                result.Add(Resource.strings.Sum + ": ");
+                indexMenu++;
             }
 
             else if (command.Contains(Resource.strings.Info))
@@ -321,10 +325,10 @@ namespace BankingSystem
         {
             result.Clear();
             int sumAdd = 0;
-            if(int.TryParse(sum,out sumAdd))
+            if (int.TryParse(sum, out sumAdd))
             {
 
-                if(refill.Refill(activeAccount, sumAdd))
+                if (refill.Refill(activeAccount, sumAdd))
                 {
                     string str = String.Format("{0}: {1}\n{2}: {3}\n{4}: {5} {6}\n{7}: {8} {9}", Resource.strings.CardNumber,
                         activeCard.NumberCard, Resource.strings.AccountNumber, activeAccount.AccountNumber,
@@ -346,6 +350,59 @@ namespace BankingSystem
             {
                 result.Add(Resource.strings.Error);
                 result.Add(Resource.strings.Sum + ": ");
+            }
+            return result;
+        }
+
+        private List<string> TransferAccount(string sumOrNumber)
+        {
+            result.Clear();
+            int sum = 0;
+            if (firstTransferCall)
+            {
+                if (int.TryParse(sumOrNumber, out sum))
+                {
+                    transferSum = sum;
+                    if (sum > activeAccount.MoneyOnAccount)
+                    {
+                        result.Add(Resource.strings.Error);
+                        result.Add(Resource.strings.Sum + ": ");
+                    }
+                    else
+                    {
+                        activeAccount.MoneyOnAccount -= sum;
+                        result.Add(Resource.strings.Transfer + " " + Resource.strings.ToAccount + ": ");
+                        firstTransferCall = false;
+                    }
+                }
+                else
+                {
+                    result.Add(Resource.strings.Error);
+                    result.Add(Resource.strings.Sum + ": ");
+                }
+            }
+            else
+            {
+                long accountNumber;
+                if (long.TryParse(sumOrNumber, out accountNumber))
+                {
+                    Account acceptingAccount = (dataBase as DatabaseManagementSystem).FindAccount(accountNumber);
+                    if (acceptingAccount != null)
+                    {
+                        acceptingAccount.AccountNumber += transferSum;
+                    }
+                    string str = String.Format("{0}: {1}\n{2}: {3}\n{4}: {5} {6}\n{7} {8}: {9}\n{10}: {11} {12}", Resource.strings.CardNumber,
+                        activeCard.NumberCard, Resource.strings.AccountNumber, activeAccount.AccountNumber,
+                        Resource.strings.Transfer, transferSum, activeAccount.Currency,
+                        Resource.strings.Transfer, Resource.strings.ToAccount, accountNumber,
+                        Resource.strings.Available, activeAccount.MoneyOnAccount, activeAccount.Currency);
+                    string subject = "SDPBank";
+                    changeAccount(activeUser, subject, str);
+                    Back();
+                    atm.EventHandler -= TransferAccount;
+                    atm.EventHandler += Handler;
+                    firstTransferCall = true;
+                }
             }
             return result;
         }
