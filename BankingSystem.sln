@@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.26730.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankingSystem", "BankingSystem\BankingSystem.csproj", "{CDF810A3-F98E-4836-B6FA-D49E23B8F211}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelegramBot", "TelegramBot\TelegramBot.csproj", "{9DC4C368-FC15-4F74-A7F6-2C858A59B607}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{CDF810A3-F98E-4836-B6FA-D49E23B8F211}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CDF810A3-F98E-4836-B6FA-D49E23B8F211}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CDF810A3-F98E-4836-B6FA-D49E23B8F211}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9DC4C368-FC15-4F74-A7F6-2C858A59B607}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9DC4C368-FC15-4F74-A7F6-2C858A59B607}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9DC4C368-FC15-4F74-A7F6-2C858A59B607}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9DC4C368-FC15-4F74-A7F6-2C858A59B607}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

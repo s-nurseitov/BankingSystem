@@ -18,9 +18,7 @@ namespace BankingSystem
         {
             Server server = new Server();
             server.Start();
-            //Thread.CurrentThread.CurrentUICulture=CultureInfo.GetCultureInfo("kk-KZ");
-
-            //Console.WriteLine(Resource.strings.Hello);
+           
             Console.ReadLine();
         }
     }

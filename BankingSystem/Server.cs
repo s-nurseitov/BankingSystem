@@ -13,6 +13,7 @@ namespace BankingSystem
         public long Id { get; set; }
         public delegate bool Notify(User user, string subject, string body);
         public event Notify changeAccount;
+        private TelegramBot bot;
         private ATM atm;
         private INotificationService notification;
         private IRefillService refill;
@@ -24,6 +25,7 @@ namespace BankingSystem
         private Card activeCard;
         private Account activeAccount;
         private List<string> result;
+        
         private int indexMenu = 0;
         private bool firstCall = true;
         private bool firstTransferCall = true;
@@ -32,6 +34,7 @@ namespace BankingSystem
         {
             atm = new ATM(new ATM.Handler(Handler));
             notification = new Notification(this);
+            bot = new TelegramBot();
             refill = new RefillService();
             withdraw = new WithdrawService();
             registration = new RegistrationService();
@@ -41,6 +44,8 @@ namespace BankingSystem
             activeCard = new Card();
             activeAccount = new Account(0);
             result = new List<string>();
+            
+            bot.Start_Bot();
         }
 
         public List<string> Handler(string command)
@@ -334,6 +339,7 @@ namespace BankingSystem
                         activeCard.NumberCard, Resource.strings.AccountNumber, activeAccount.AccountNumber,
                         Resource.strings.Replenish, sumAdd, activeAccount.Currency,
                         Resource.strings.Available, activeAccount.MoneyOnAccount, activeAccount.Currency);
+                    bot.lastOperations.Add(str);
                     string subject = "SDPBank";
                     changeAccount(activeUser, subject, str);
                     Back();
@@ -372,6 +378,7 @@ namespace BankingSystem
                     {
                         activeAccount.MoneyOnAccount -= sum;
                         result.Add(Resource.strings.Transfer + " " + Resource.strings.ToAccount + ": ");
+                        bot.lastOperations.Add(Resource.strings.Transfer + " " + Resource.strings.ToAccount + ": ");
                         firstTransferCall = false;
                     }
                 }
@@ -396,6 +403,7 @@ namespace BankingSystem
                         Resource.strings.Transfer, transferSum, activeAccount.Currency,
                         Resource.strings.Transfer, Resource.strings.ToAccount, accountNumber,
                         Resource.strings.Available, activeAccount.MoneyOnAccount, activeAccount.Currency);
+                    bot.lastOperations.Add(str);
                     string subject = "SDPBank";
                     changeAccount(activeUser, subject, str);
                     Back();
@@ -421,6 +429,7 @@ namespace BankingSystem
                         Resource.strings.Withdraw, sumWithdraw, activeAccount.Currency,
                         Resource.strings.Available, activeAccount.MoneyOnAccount, activeAccount.Currency);
                     string subject = "SDPBank";
+                    bot.lastOperations.Add(str);
                     changeAccount(activeUser, subject, str);
                     Back();
                     atm.EventHandler -= ReplenishAccount;
