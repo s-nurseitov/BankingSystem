@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace BankingSystem
@@ -15,6 +16,15 @@ namespace BankingSystem
             this.users.Add(user);
         }
 
+        public DatabaseManagementSystem()
+        {
+            using (FileStream stream =  new FileStream(@"C:\database.txt",FileMode.OpenOrCreate))
+            {
+                byte[] bytes = new byte[stream.Length];
+                stream.Read(bytes, 0, bytes.Length);
+                
+            }
+        }
         public void Delete(User user)
         {
             bool isAppear = users.Contains(user);
@@ -55,6 +65,17 @@ namespace BankingSystem
                             return account;
                         }
                     }
+                }
+            }
+            return null;
+        }
+        public User FindPhoneNumber(string phoneNumber)
+        {
+            foreach (User user in users)
+            {
+                if (user.PhoneNumber == phoneNumber)
+                {
+                    return user;
                 }
             }
             return null;

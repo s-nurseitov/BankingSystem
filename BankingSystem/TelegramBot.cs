@@ -10,7 +10,7 @@ namespace BankingSystem
 {
     public class TelegramBot
     {
-        public List<string> lastOperations=new List<string>();
+        DatabaseManagementSystem database = new DatabaseManagementSystem();
         public async void Start_Bot()
         {
             var key = "422108608:AAEKs1HE_ZiXfl3okH3OctIACLCAX6q1eOY"; // получаем ключ из аргументов
@@ -34,10 +34,16 @@ namespace BankingSystem
                         }
                         if (message.Text == "/notification")
                         {
-                            foreach (var str in lastOperations) {
-                                await Bot.SendTextMessageAsync(message.Chat.Id, str, replyToMessageId: message.MessageId);
+                            User user = database.FindPhoneNumber(message.Contact.PhoneNumber);
+                            if (user != null)
+                            {
+                                foreach (var str in user.lastOperations)
+                                {
+                                    await Bot.SendTextMessageAsync(message.Chat.Id, str, replyToMessageId: message.MessageId);
+                                }
+                                user.lastOperations.Clear();
                             }
-                            lastOperations.Clear();
+                            
                         }
                     }
                 };

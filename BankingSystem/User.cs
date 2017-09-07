@@ -12,6 +12,7 @@ namespace BankingSystem
         public List<Card> Cards { get; set; }
         public string Email { get; set; }
 
+        public List<string> lastOperations;
         public User()
         {
             IIN ="";
@@ -19,6 +20,7 @@ namespace BankingSystem
             PhoneNumber = "";
             Cards = new List<Card>();
             Email = "";
+             = new List<string>();
         }
     }
 }
