@@ -25,7 +25,7 @@ namespace BankingSystem
         private Card activeCard;
         private Account activeAccount;
         private List<string> result;
-        
+
         private int indexMenu = 0;
         private bool firstCall = true;
         private bool firstTransferCall = true;
@@ -44,7 +44,7 @@ namespace BankingSystem
             activeCard = new Card();
             activeAccount = new Account(0);
             result = new List<string>();
-            
+
             bot.Start_Bot();
         }
 
@@ -369,18 +369,8 @@ namespace BankingSystem
                 if (int.TryParse(sumOrNumber, out sum))
                 {
                     transferSum = sum;
-                    if (sum > activeAccount.MoneyOnAccount)
-                    {
-                        result.Add(Resource.strings.Error);
-                        result.Add(Resource.strings.Sum + ": ");
-                    }
-                    else
-                    {
-                        activeAccount.MoneyOnAccount -= sum;
-                        result.Add(Resource.strings.Transfer + " " + Resource.strings.ToAccount + ": ");
-                        bot.lastOperations.Add(Resource.strings.Transfer + " " + Resource.strings.ToAccount + ": ");
-                        firstTransferCall = false;
-                    }
+                    result.Add(Resource.strings.Transfer + " " + Resource.strings.ToAccount + ": ");
+                    firstTransferCall = false;
                 }
                 else
                 {
@@ -394,21 +384,25 @@ namespace BankingSystem
                 if (long.TryParse(sumOrNumber, out accountNumber))
                 {
                     Account acceptingAccount = (dataBase as DatabaseManagementSystem).FindAccount(accountNumber);
-                    if (acceptingAccount != null)
+                    if (transfer.Transfer(activeAccount, acceptingAccount, transferSum))
                     {
-                        acceptingAccount.AccountNumber += transferSum;
-                    }
-                    string str = String.Format("{0}: {1}\n{2}: {3}\n{4}: {5} {6}\n{7} {8}: {9}\n{10}: {11} {12}", Resource.strings.CardNumber,
+                        string body = String.Format("{0}: {1}\n{2}: {3}\n{4}: {5} {6}\n{7} {8}: {9}\n{10}: {11} {12}", Resource.strings.CardNumber,
                         activeCard.NumberCard, Resource.strings.AccountNumber, activeAccount.AccountNumber,
                         Resource.strings.Transfer, transferSum, activeAccount.Currency,
                         Resource.strings.Transfer, Resource.strings.ToAccount, accountNumber,
                         Resource.strings.Available, activeAccount.MoneyOnAccount, activeAccount.Currency);
-                    bot.lastOperations.Add(str);
-                    string subject = "SDPBank";
-                    changeAccount(activeUser, subject, str);
-                    Back();
-                    atm.EventHandler -= TransferAccount;
-                    atm.EventHandler += Handler;
+                        bot.lastOperations.Add(body);
+                        string subject = "SDPBank";
+                        changeAccount(activeUser, subject, body);
+                        Back();
+                        atm.EventHandler -= TransferAccount;
+                        atm.EventHandler += Handler;
+                    }
+                    else
+                    {
+                        result.Add(Resource.strings.Error);
+                        result.Add(Resource.strings.Sum + ": ");
+                    }
                     firstTransferCall = true;
                 }
             }
@@ -432,7 +426,7 @@ namespace BankingSystem
                     bot.lastOperations.Add(str);
                     changeAccount(activeUser, subject, str);
                     Back();
-                    atm.EventHandler -= ReplenishAccount;
+                    atm.EventHandler -= WithdrawAccount;
                     atm.EventHandler += Handler;
                 }
                 else
