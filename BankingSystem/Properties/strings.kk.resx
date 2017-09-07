@@ -144,6 +144,9 @@
   <data name="CardsNotFound" xml:space="preserve">
     <value>Карталар табылған жоқ</value>
   </data>
+  <data name="Date" xml:space="preserve">
+    <value>Күні</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>Жою</value>
   </data>
@@ -194,6 +197,9 @@
   </data>
   <data name="Sum" xml:space="preserve">
     <value>Cома</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Уақыт</value>
   </data>
   <data name="ToAccount" xml:space="preserve">
     <value>шотқа</value>

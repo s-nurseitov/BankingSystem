@@ -335,10 +335,12 @@ namespace BankingSystem
 
                 if (refill.Refill(activeAccount, sumAdd))
                 {
-                    string str = String.Format("{0}: {1}\n{2}: {3}\n{4}: {5} {6}\n{7}: {8} {9}", Resource.strings.CardNumber,
+                    DateTime dataTime = DateTime.Now;
+                    string str = String.Format("{0}: {1}\n{2}: {3}\n{4}: {5} {6}\n{7}: {8} {9}\n{10}: {11}", Resource.strings.CardNumber,
                         activeCard.NumberCard, Resource.strings.AccountNumber, activeAccount.AccountNumber,
                         Resource.strings.Replenish, sumAdd, activeAccount.Currency,
-                        Resource.strings.Available, activeAccount.MoneyOnAccount, activeAccount.Currency);
+                        Resource.strings.Available, activeAccount.MoneyOnAccount, activeAccount.Currency,
+                        Resource.strings.Date, dataTime);
                     bot.lastOperations.Add(str);
                     string subject = "SDPBank";
                     Сontainer container = new Сontainer() { user = activeUser, subject = subject, body = str };
@@ -388,11 +390,14 @@ namespace BankingSystem
                     Account acceptingAccount = (dataBase as DatabaseManagementSystem).FindAccount(accountNumber);
                     if (transfer.Transfer(activeAccount, acceptingAccount, transferSum))
                     {
-                        string body = String.Format("{0}: {1}\n{2}: {3}\n{4}: {5} {6}\n{7} {8}: {9}\n{10}: {11} {12}", Resource.strings.CardNumber,
-                        activeCard.NumberCard, Resource.strings.AccountNumber, activeAccount.AccountNumber,
-                        Resource.strings.Transfer, transferSum, activeAccount.Currency,
-                        Resource.strings.Transfer, Resource.strings.ToAccount, accountNumber,
-                        Resource.strings.Available, activeAccount.MoneyOnAccount, activeAccount.Currency);
+                        DateTime dataTime = DateTime.Now;
+                        string body = String.Format("{0}: {1}\n{2}: {3}\n{4}: {5} {6}\n{7} {8}: {9}\n{10}: {11} {12}\n{13}: {14}",
+                            Resource.strings.CardNumber, activeCard.NumberCard,
+                            Resource.strings.AccountNumber, activeAccount.AccountNumber,
+                            Resource.strings.Transfer, transferSum, activeAccount.Currency,
+                            Resource.strings.Transfer, Resource.strings.ToAccount, accountNumber,
+                            Resource.strings.Available, activeAccount.MoneyOnAccount, activeAccount.Currency,
+                            Resource.strings.Date, dataTime);
                         bot.lastOperations.Add(body);
                         string subject = "SDPBank";
                         Сontainer container = new Сontainer() { user = activeUser, subject = subject, body = body };
@@ -422,10 +427,12 @@ namespace BankingSystem
 
                 if (withdraw.Withdraw(activeAccount, sumWithdraw))
                 {
-                    string str = String.Format("{0}: {1}\n{2}: {3}\n{4}: {5} {6}\n{7}: {8} {9}", Resource.strings.CardNumber,
+                    DateTime dataTime = DateTime.Now;
+                    string str = String.Format("{0}: {1}\n{2}: {3}\n{4}: {5} {6}\n{7}: {8} {9}\n{10}: {11}", Resource.strings.CardNumber,
                         activeCard.NumberCard, Resource.strings.AccountNumber, activeAccount.AccountNumber,
                         Resource.strings.Withdraw, sumWithdraw, activeAccount.Currency,
-                        Resource.strings.Available, activeAccount.MoneyOnAccount, activeAccount.Currency);
+                        Resource.strings.Available, activeAccount.MoneyOnAccount, activeAccount.Currency,
+                        Resource.strings.Date, dataTime);
                     string subject = "SDPBank";
                     bot.lastOperations.Add(str);
                     Сontainer container = new Сontainer() { user = activeUser, subject = subject, body = str };

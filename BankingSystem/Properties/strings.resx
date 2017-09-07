@@ -144,6 +144,9 @@
   <data name="CardsNotFound" xml:space="preserve">
     <value>Cards not found</value>
   </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
@@ -194,6 +197,9 @@
   </data>
   <data name="Sum" xml:space="preserve">
     <value>Sum</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Time</value>
   </data>
   <data name="ToAccount" xml:space="preserve">
     <value>To account</value>

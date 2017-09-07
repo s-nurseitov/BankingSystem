@@ -144,6 +144,9 @@
   <data name="CardsNotFound" xml:space="preserve">
     <value>Карты не найдены</value>
   </data>
+  <data name="Date" xml:space="preserve">
+    <value>Дата</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>Удалить</value>
   </data>
@@ -194,6 +197,9 @@
   </data>
   <data name="Sum" xml:space="preserve">
     <value>Сумма</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Время</value>
   </data>
   <data name="ToAccount" xml:space="preserve">
     <value>на счёт</value>

@@ -8,6 +8,7 @@ namespace BankingSystem
         public long AccountNumber { get; set; }
         public double MoneyOnAccount { get; set; }
         public Сurrency Currency { get; private set; }
+
         private static Random accountCounter;
 
         static Account()
