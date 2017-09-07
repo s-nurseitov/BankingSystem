@@ -27,7 +27,7 @@ namespace BankingSystem
                     if (message == null) return;
                     if (message.Type == Telegram.Bot.Types.Enums.MessageType.TextMessage)
                     {
-                        if (message.Text == "/saysomething")
+                        if (message.Text == "/hello")
                         {
                             // в ответ на команду /saysomething выводим сообщение
                             await Bot.SendTextMessageAsync(message.Chat.Id, "Приветствуем вас в наешм банке!", replyToMessageId: message.MessageId);
@@ -37,10 +37,8 @@ namespace BankingSystem
                             foreach (var str in lastOperations) {
                                 await Bot.SendTextMessageAsync(message.Chat.Id, str, replyToMessageId: message.MessageId);
                             }
+                            lastOperations.Clear();
                         }
-
-                       
-
                     }
                 };
 
