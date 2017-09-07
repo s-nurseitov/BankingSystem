@@ -18,12 +18,7 @@ namespace BankingSystem
 
         public DatabaseManagementSystem()
         {
-            using (FileStream stream =  new FileStream(@"C:\database.txt",FileMode.OpenOrCreate))
-            {
-                byte[] bytes = new byte[stream.Length];
-                stream.Read(bytes, 0, bytes.Length);
-                
-            }
+            
         }
         public void Delete(User user)
         {

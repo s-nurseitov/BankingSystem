@@ -341,7 +341,7 @@ namespace BankingSystem
                         Resource.strings.Replenish, sumAdd, activeAccount.Currency,
                         Resource.strings.Available, activeAccount.MoneyOnAccount, activeAccount.Currency,
                         Resource.strings.Date, dataTime);
-                    bot.lastOperations.Add(str);
+                    activeUser.lastOperations.Add(str);
                     string subject = "SDPBank";
                     Сontainer container = new Сontainer() { user = activeUser, subject = subject, body = str };
                     Thread threadForNotification = new Thread(new ParameterizedThreadStart(changeAccount));
@@ -398,7 +398,7 @@ namespace BankingSystem
                             Resource.strings.Transfer, Resource.strings.ToAccount, accountNumber,
                             Resource.strings.Available, activeAccount.MoneyOnAccount, activeAccount.Currency,
                             Resource.strings.Date, dataTime);
-                        bot.lastOperations.Add(body);
+                        activeUser.lastOperations.Add(body);
                         string subject = "SDPBank";
                         Сontainer container = new Сontainer() { user = activeUser, subject = subject, body = body };
                         Thread threadForNotification = new Thread(new ParameterizedThreadStart(changeAccount));
@@ -434,7 +434,7 @@ namespace BankingSystem
                         Resource.strings.Available, activeAccount.MoneyOnAccount, activeAccount.Currency,
                         Resource.strings.Date, dataTime);
                     string subject = "SDPBank";
-                    bot.lastOperations.Add(str);
+                    activeUser.lastOperations.Add(str);
                     Сontainer container = new Сontainer() { user = activeUser, subject = subject, body = str };
                     Thread threadForNotification = new Thread(new ParameterizedThreadStart(changeAccount));
                     threadForNotification.Start(container);

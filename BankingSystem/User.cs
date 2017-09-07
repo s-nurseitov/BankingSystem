@@ -20,7 +20,7 @@ namespace BankingSystem
             PhoneNumber = "";
             Cards = new List<Card>();
             Email = "";
-             = new List<string>();
+            lastOperations = new List<string>();
         }
     }
 }
