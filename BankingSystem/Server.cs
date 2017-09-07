@@ -11,7 +11,7 @@ namespace BankingSystem
     public class Server
     {
         public long Id { get; set; }
-        public delegate bool Notify(User user, string subject, string body);
+        public delegate void Notify(object obj);
         public event Notify changeAccount;
         private TelegramBot bot;
         private ATM atm;
@@ -341,7 +341,9 @@ namespace BankingSystem
                         Resource.strings.Available, activeAccount.MoneyOnAccount, activeAccount.Currency);
                     bot.lastOperations.Add(str);
                     string subject = "SDPBank";
-                    changeAccount(activeUser, subject, str);
+                    Сontainer container = new Сontainer() { user = activeUser, subject = subject, body = str };
+                    Thread threadForNotification = new Thread(new ParameterizedThreadStart(changeAccount));
+                    threadForNotification.Start(container);
                     Back();
                     atm.EventHandler -= ReplenishAccount;
                     atm.EventHandler += Handler;
@@ -393,7 +395,9 @@ namespace BankingSystem
                         Resource.strings.Available, activeAccount.MoneyOnAccount, activeAccount.Currency);
                         bot.lastOperations.Add(body);
                         string subject = "SDPBank";
-                        changeAccount(activeUser, subject, body);
+                        Сontainer container = new Сontainer() { user = activeUser, subject = subject, body = body };
+                        Thread threadForNotification = new Thread(new ParameterizedThreadStart(changeAccount));
+                        threadForNotification.Start(container);
                         Back();
                         atm.EventHandler -= TransferAccount;
                         atm.EventHandler += Handler;
@@ -424,7 +428,9 @@ namespace BankingSystem
                         Resource.strings.Available, activeAccount.MoneyOnAccount, activeAccount.Currency);
                     string subject = "SDPBank";
                     bot.lastOperations.Add(str);
-                    changeAccount(activeUser, subject, str);
+                    Сontainer container = new Сontainer() { user = activeUser, subject = subject, body = str };
+                    Thread threadForNotification = new Thread(new ParameterizedThreadStart(changeAccount));
+                    threadForNotification.Start(container);
                     Back();
                     atm.EventHandler -= WithdrawAccount;
                     atm.EventHandler += Handler;

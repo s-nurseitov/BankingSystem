@@ -12,15 +12,16 @@ namespace BankingSystem
         {
             server.changeAccount += Notify;
         }
-        public bool Notify(User user, string subject, string body)
+        public void Notify(object obj)
         {
+            Сontainer container = (Сontainer)obj;
             MailMessage msg = new MailMessage();
             try
             {
                 msg.From = new MailAddress("SDPBank.162@gmail.com");
-                msg.To.Add(user.Email);
-                msg.Subject = subject;
-                msg.Body = body;
+                msg.To.Add(container.user.Email);
+                msg.Subject = container.subject;
+                msg.Body = container.body;
                 SmtpClient client = new SmtpClient();
                 client.UseDefaultCredentials = true;
                 client.Host = "smtp.gmail.com";
@@ -35,12 +36,10 @@ namespace BankingSystem
             {
                 //Console.WriteLine(ex.Message);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // запись логов
-                return false;
+                //Console.WriteLine(ex.Message);
             }
-            return true;
         }
     }
 }

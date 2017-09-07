@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace BankingSystem
 {
-    public interface INotificationService
+    public class Сontainer
     {
-        void Notify(object obj);
+        public User user { get; set; }
+        public string subject { get; set; }
+        public string body { get; set; }
     }
 }

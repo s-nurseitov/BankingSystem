@@ -90,6 +90,7 @@
     <Compile Include="TransferService.cs" />
     <Compile Include="User.cs" />
     <Compile Include="WithdrawService.cs" />
+    <Compile Include="Сontainer.cs" />
     <Compile Include="Сurrency.cs" />
   </ItemGroup>
   <ItemGroup>
