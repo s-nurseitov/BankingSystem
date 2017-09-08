@@ -56,6 +56,7 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
     <Reference Include="Telegram.Bot, Version=13.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Telegram.Bot.13.2.1\lib\netstandard1.1\Telegram.Bot.dll</HintPath>
     </Reference>
@@ -101,7 +102,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <Fakes Include="Fakes\Newtonsoft.Json.fakes" />
+    <Fakes Include="Fakes\Newtonsoft.Json.fakes">
+      <SubType>Designer</SubType>
+    </Fakes>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -120,9 +123,6 @@
       <LastGenOutput>strings.ru.Designer.cs</LastGenOutput>
       <CustomToolNamespace>Resource</CustomToolNamespace>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Database.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

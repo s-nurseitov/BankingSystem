@@ -2,6 +2,7 @@
 
 namespace BankingSystem
 {
+    [Serializable]
     public class Account
     {
         public long Id { get; set; }

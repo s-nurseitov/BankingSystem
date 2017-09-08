@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace BankingSystem
 {
+    [Serializable]
     public class Card
     {
         public long Id { get; set; }

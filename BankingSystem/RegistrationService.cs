@@ -8,16 +8,16 @@ namespace BankingSystem
         void IRegistrationService.registration(User user)
         {
             Clear();
-            for (; ; )
+            for (;;)
             {
                 WriteLine(Resource.strings.IIN + ": ");
                 string iin = ReadLine();
                 long iinint = 0;
-                for(int i = 0; i < iin.Length; ++i)
+                for (int i = 0; i < iin.Length; ++i)
                 {
-                    if(iin[i]==' ')
+                    if (iin[i] == ' ')
                     {
-                        iin=iin.Remove(i, 1);
+                        iin = iin.Remove(i, 1);
                     }
                 }
                 if (Int64.TryParse(iin, out iinint))
@@ -28,13 +28,11 @@ namespace BankingSystem
                         break;
                     }
                 }
-                else
-                {
-                    Clear();
-                    WriteLine(Resource.strings.Error);
-                }
+                Clear();
+                WriteLine(Resource.strings.Error);
             }
-            WriteLine(Resource.strings.FullName+": ");
+
+            WriteLine(Resource.strings.FullName + ": ");
             user.FullName = ReadLine();
 
             WriteLine(Resource.strings.PhoneNumber + ": ");
