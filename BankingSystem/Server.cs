@@ -44,8 +44,8 @@ namespace BankingSystem
             activeCard = new Card();
             activeAccount = new Account(0);
             result = new List<string>();
-
-            bot.Start_Bot();
+            //bot.Start_Bot();
+            
         }
 
         public List<string> Handler(string command)
