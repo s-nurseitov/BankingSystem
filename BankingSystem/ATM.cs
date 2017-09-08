@@ -37,6 +37,10 @@ namespace BankingSystem
                         PrintImage(menu);
                     }
                 }
+                if (menu == null)
+                {
+                    break;
+                }
             }
         }
 

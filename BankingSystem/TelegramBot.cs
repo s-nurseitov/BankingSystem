@@ -34,7 +34,11 @@ namespace BankingSystem
                         }
                         if (message.Text == "/notification")
                         {
-                            User user = database.FindPhoneNumber(message.Contact.PhoneNumber);
+                            User user= null;
+                            if (message.Contact != null)
+                            {
+                                user = database.FindPhoneNumber(message.Contact.PhoneNumber);
+                            }
                             if (user != null)
                             {
                                 foreach (var str in user.lastOperations)

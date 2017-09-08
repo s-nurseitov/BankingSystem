@@ -57,6 +57,7 @@ namespace BankingSystem
                 result.Add("1 - RU");
                 result.Add("2 - EN");
                 result.Add("3 - KZ");
+                result.Add("4 - EXIT");
                 return result;
             }
 
@@ -136,6 +137,10 @@ namespace BankingSystem
             {
                 SetLanguage(command);
                 return result;
+            }
+            else if (command.Contains("EXIT"))
+            {
+                (dataBase as DatabaseManagementSystem).Save();
             }
 
             FormMenu(command);
@@ -292,6 +297,10 @@ namespace BankingSystem
                     Back();
                 }
             }
+            else if (command.Contains("EXIT"))
+            {
+                result = null;
+            }
 
         }
 
@@ -323,6 +332,9 @@ namespace BankingSystem
             result.Add("1 - " + Resource.strings.ViewMaps);
             result.Add("2 - " + Resource.strings.SubmitRequest);
             result.Add("3 - " + Resource.strings.Back);
+
+            atm.EventHandler -= Input;
+            atm.EventHandler += Handler;
             return result;
         }
 
@@ -488,6 +500,7 @@ namespace BankingSystem
                 result.Add("1 - RU");
                 result.Add("2 - EN");
                 result.Add("3 - KZ");
+                result.Add("4 - EXIT");
             }
             else if (indexMenu == 2)
             {
