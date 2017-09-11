@@ -32,6 +32,7 @@ namespace BankingSystem
                             // в ответ на команду /saysomething выводим сообщение
                             await Bot.SendTextMessageAsync(message.Chat.Id, "Приветствуем вас в наешм банке!", replyToMessageId: message.MessageId);
                         }
+                        
                         if (message.Text == "/notification")
                         {
                             User user = database.FindPhoneNumber(message.Contact.PhoneNumber);
@@ -48,7 +49,7 @@ namespace BankingSystem
                         }
                     }
                 };
-
+               
                 // запускаем прием обновлений
                 Bot.StartReceiving();
             }
@@ -57,6 +58,11 @@ namespace BankingSystem
                 Console.WriteLine(ex.Message); // если ключ не подошел - пишем об этом в консоль отладки
             }
 
+        }
+
+        private void Bot_OnMessage(object sender, Telegram.Bot.Args.MessageEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }
