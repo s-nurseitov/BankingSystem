@@ -22,12 +22,11 @@ namespace BankingSystem
                     byte[] bytes = new byte[fileStream.Length];
                     fileStream.Read(bytes, 0, bytes.Length);
                     string str = Encoding.Default.GetString(bytes);
-                    string[] json = str.Split('\n');
-                    for (int i = 0; i < json.Length; ++i)
+                    if (JsonConvert.DeserializeAnonymousType(str,users)!=null)
                     {
-                        users.Add(JsonConvert.DeserializeObject<User>(json[i]));
+                        users = JsonConvert.DeserializeAnonymousType(str, users);
                     }
-                }
+                }  
             }      
         }
 
@@ -35,14 +34,10 @@ namespace BankingSystem
         {
             using (FileStream fileStream = new FileStream("BankDatabase.json", FileMode.OpenOrCreate))
             {
-                string jsonusers=" ";
-                for (int i = 0; i < users.Count; ++i)
-                {
-                    jsonusers += JsonConvert.SerializeObject(users[i]);
-                }
+                string jsonusers="";
+                jsonusers=JsonConvert.SerializeObject(users);
                 byte[] bytes = Encoding.Default.GetBytes(jsonusers);
                 fileStream.Write(bytes, 0, bytes.Length);
-
             }
         }
 

@@ -22,13 +22,13 @@ namespace BankingSystem
             PrintImage(menu);
             for (;;)
             {
-                int pos = 0;
+                long pos = 0;
                 string command = Console.ReadLine();
-                if (Int32.TryParse(command, out pos))
+                if (Int64.TryParse(command, out pos))
                 {
                     if (pos > 0 && pos <= menu.Count)
                     {
-                        menu = EventHandler(menu[pos - 1]);
+                        menu = EventHandler(menu[(int)pos - 1]);
                         PrintImage(menu);
                     }
                     else

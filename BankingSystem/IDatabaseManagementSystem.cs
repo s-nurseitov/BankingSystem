@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace BankingSystem
 {
+    //Repository pattern or Gateway
     public interface IDatabaseManagementSystem
     {
         void Add(User user);

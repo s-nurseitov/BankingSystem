@@ -69,9 +69,9 @@ namespace BankingSystem
 
             else if (command.Contains(Resource.strings.SignUp))
             {
-                activeUser = new User();
                 registration.registration(activeUser);
                 dataBase.Add(activeUser);
+                activeUser = new User();
             }
 
             else if (command.Contains(Resource.strings.SubmitRequest))
